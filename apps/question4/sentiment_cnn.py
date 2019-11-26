@@ -36,26 +36,26 @@ embed_dim = 128
 lstm_out = 196
 
 
-def createmodel():
-    model = Sequential()
-    model.add(Embedding(max_fatures, embed_dim, input_length=X_train.shape[1]))
-    model.add(Conv1D(128, (5), activation='relu', padding='same', kernel_constraint=maxnorm(3)))
-    model.add(MaxPooling1D(5))
-    model.add(Flatten())
-    model.add(Dense(512, activation='relu', kernel_constraint=maxnorm(3)))
-    model.add(Dropout(0.5))
-    model.add(Dense(5, activation='softmax'))
-    sgd = SGD(lr=0.01, momentum=0.9, decay= 0.01 / 15, nesterov=False)
-    model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
-    return model
+def create_model():
+    sequential_model = Sequential()
+    sequential_model.add(Embedding(max_fatures, embed_dim, input_length=X_train.shape[1]))
+    sequential_model.add(Conv1D(128, (5), activation='relu', padding='same', kernel_constraint=maxnorm(3)))
+    sequential_model.add(MaxPooling1D(5))
+    sequential_model.add(Flatten())
+    sequential_model.add(Dense(512, activation='relu', kernel_constraint=maxnorm(3)))
+    sequential_model.add(Dropout(0.5))
+    sequential_model.add(Dense(5, activation='softmax'))
+    sgd = SGD(lr=0.01, momentum=0.9, decay=0.01 / 15, nesterov=False)
+    sequential_model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+    return sequential_model
 
 
-labelencoder = LabelEncoder()
-integer_encoded = labelencoder.fit_transform(train_movie_df['Sentiment'])
+label_encoder = LabelEncoder()
+integer_encoded = label_encoder.fit_transform(train_movie_df['Sentiment'])
 Y_train = to_categorical(integer_encoded)
 X_TR, X_TST, Y_TR, Y_TST = train_test_split(X_train, Y_train, test_size=0.25, random_state=30)
 
-model = createmodel()
+model = create_model()
 
 batch_size = 500
 
@@ -64,7 +64,6 @@ score, acc = model.evaluate(X_TST, Y_TST, verbose=2, batch_size=batch_size)
 
 # plotting the loss
 plot.plot(history.history['loss'])
-# plt.plot(history.history['test_loss'])
 plot.title('model loss')
 plot.ylabel('loss')
 plot.xlabel('epoch')

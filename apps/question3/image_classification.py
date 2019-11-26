@@ -62,7 +62,6 @@ tested_classes = enc.inverse_transform(np.argmax(Y_test, axis=1, out=None))
 
 # plotting the loss
 plot.plot(history.history['loss'])
-# plt.plot(history.history['test_loss'])
 plot.title('model loss')
 plot.ylabel('loss')
 plot.xlabel('epoch')

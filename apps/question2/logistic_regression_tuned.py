@@ -52,7 +52,6 @@ print('Loss: %.2f, Accuracy: %.2f' % (score[0], score[1]))
 
 # plotting the loss
 plot.plot(history.history['loss'])
-# plt.plot(history.history['test_loss'])
 plot.title('model loss')
 plot.ylabel('loss')
 plot.xlabel('epoch')
