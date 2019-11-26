@@ -19,7 +19,7 @@ def createmodel():
     return model
 
 
-tensorboard = TensorBoard(log_dir="tensor_board/1", histogram_freq=0, write_graph=True, write_images=True)
+tensorboard = TensorBoard(log_dir="/tmp/tensor-board/linear-regression", histogram_freq=0, write_graph=True, write_images=True)
 
 model = createmodel()
 history = model.fit(X_train, Y_train, epochs=15, batch_size=120, callbacks=[tensorboard])
