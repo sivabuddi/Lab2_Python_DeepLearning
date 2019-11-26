@@ -43,7 +43,7 @@ def create_model():
     sequential_model.add(Dropout(0.5))
     sequential_model.add(Dense(5, activation='softmax'))
     sequential_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    return model
+    return sequential_model
 
 
 label_encoder = LabelEncoder()

@@ -44,7 +44,7 @@ def create_model():
     sequential_model.add(Dense(5, activation='softmax'))
     sgd = SGD(lr=0.01, momentum=0.9, decay=0.01 / 15, nesterov=False)
     sequential_model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
-    return model
+    return sequential_model
 
 
 label_encoder = LabelEncoder()
