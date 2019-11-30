@@ -13,13 +13,14 @@ X_train, X_test, Y_train, Y_test = train_test_split(data[1:, 0:8], data[1:, 8],
 def createmodel():
     model = Sequential()
     model.add(Dense(8, input_dim=8, init='normal', activation='relu'))
-    model.add(Dense(13, init='normal', activation='relu'))
+    model.add(Dense(13, init='normal', activation='softmax'))
     model.add(Dense(1, activation="linear"))
-    model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
+    model.compile(loss='mean_squared_error', optimizer='RMSprop', metrics=['accuracy', 'mse'])
     return model
 
 
-tensorboard = TensorBoard(log_dir="/tmp/tensor-board/linear-regression", histogram_freq=0, write_graph=True, write_images=True)
+tensorboard = TensorBoard(log_dir="/tmp/tensor-board/linear-regression", histogram_freq=0, write_graph=True,
+                          write_images=True)
 
 model = createmodel()
 history = model.fit(X_train, Y_train, epochs=30, batch_size=90, callbacks=[tensorboard])
