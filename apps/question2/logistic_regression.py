@@ -29,23 +29,23 @@ heart_df.thal = (heart_df.thal - np.min(heart_df.thal)) / (np.max(heart_df.thal)
 
 values_scaled = np.asarray(heart_df.values[1:, :], dtype=np.float32)
 
-X_train, X_test, Y_train, Y_test = train_test_split(values_scaled[:, 0:13], values_scaled[:, 13], test_size=0.25, random_state=87)
-
+X_train, X_test, Y_train, Y_test = train_test_split(values_scaled[:, 0:13], values_scaled[:, 13], test_size=0.25,
+                                                    random_state=87)
 
 Y_train = keras.utils.to_categorical(Y_train, 10)
 Y_test = keras.utils.to_categorical(Y_test, 10)
 
-model = Sequential()
-model.add(Dense(output_dim=10, input_shape=(13,), init='normal', activation='softmax'))
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-model.summary()
+sequential_model = Sequential()
+sequential_model.add(Dense(output_dim=10, input_shape=(13,), init='normal', activation='softmax'))
+sequential_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+sequential_model.summary()
 
-# tensorboard graph genertion
-tensorboard = TensorBoard(log_dir="/tmp/tensor-board/logistic-regression", histogram_freq=0, write_graph=True, write_images=True)
-history = model.fit(X_train, Y_train, nb_epoch=10, batch_size=60, callbacks=[tensorboard])
+tensor_board = TensorBoard(log_dir="/tmp/tensor-board/logistic-regression", histogram_freq=0, write_graph=True,
+                           write_images=True)
+history = sequential_model.fit(X_train, Y_train, nb_epoch=10, batch_size=60, callbacks=[tensor_board])
 
 # predicting the accuracy of the model
-score = model.evaluate(X_test, Y_test, verbose=1)
+score = sequential_model.evaluate(X_test, Y_test, verbose=1)
 print('Loss: %.2f, Accuracy: %.2f' % (score[0], score[1]))
 
 # plotting the loss

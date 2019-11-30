@@ -35,28 +35,28 @@ y_categorical = to_categorical(y_encoded)
 
 X_train, X_test, Y_train, Y_test = train_test_split(x_data, y_categorical, test_size=0.33)
 
-model = models.Sequential()
-model.add(layers.Conv2D(filters=32, kernel_size=(5, 5), activation='relu', input_shape=X_train.shape[1:]))
-model.add(layers.MaxPool2D(pool_size=(2, 2)))
-model.add(layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu'))
-model.add(layers.MaxPool2D(pool_size=(2, 2)))
-model.add(layers.Dropout(rate=0.25))
-model.add(layers.Flatten())
-model.add(layers.Dense(256, activation='relu'))
-model.add(layers.Dropout(rate=0.5))
-model.add(layers.Dense(8, activation='softmax'))
+sequential_model = models.Sequential()
+sequential_model.add(layers.Conv2D(filters=32, kernel_size=(5, 5), activation='relu', input_shape=X_train.shape[1:]))
+sequential_model.add(layers.MaxPool2D(pool_size=(2, 2)))
+sequential_model.add(layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu'))
+sequential_model.add(layers.MaxPool2D(pool_size=(2, 2)))
+sequential_model.add(layers.Dropout(rate=0.25))
+sequential_model.add(layers.Flatten())
+sequential_model.add(layers.Dense(256, activation='relu'))
+sequential_model.add(layers.Dropout(rate=0.5))
+sequential_model.add(layers.Dense(8, activation='softmax'))
 
-model.compile(
+sequential_model.compile(
     loss='categorical_crossentropy',
     optimizer='adam',
     metrics=['accuracy'])
 
-history = model.fit(X_train, Y_train, epochs=15, validation_split=0.2)
+history = sequential_model.fit(X_train, Y_train, epochs=15, validation_split=0.2)
 
 # predicting the accuracy of the model
-score = model.evaluate(X_test, Y_test, verbose=1)
+score = sequential_model.evaluate(X_test, Y_test, verbose=1)
 print('Loss: %.2f, Accuracy: %.2f' % (score[0], score[1]))
-predicted = model.predict_classes(X_test)
+predicted = sequential_model.predict_classes(X_test)
 predicted_classes = enc.inverse_transform(predicted)
 tested_classes = enc.inverse_transform(np.argmax(Y_test, axis=1, out=None))
 

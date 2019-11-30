@@ -35,19 +35,18 @@ X_train, X_test, Y_train, Y_test = train_test_split(values_scaled[:, 0:13], valu
 Y_train = keras.utils.to_categorical(Y_train, 10)
 Y_test = keras.utils.to_categorical(Y_test, 10)
 
-model = Sequential()
-model.add(Dense(20, input_shape=(13,), init='normal', activation='relu'))
-model.add(Dense(output_dim=10, activation='softmax'))
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-model.summary()
+sequential_model = Sequential()
+sequential_model.add(Dense(20, input_shape=(13,), init='normal', activation='relu'))
+sequential_model.add(Dense(output_dim=10, activation='softmax'))
+sequential_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+sequential_model.summary()
 
-# tensorboard graph genertion
-tensorboard = TensorBoard(log_dir="/tmp/tensor-board/logistic-regression-tuned", histogram_freq=0, write_graph=True,
+tensor_board = TensorBoard(log_dir="/tmp/tensor-board/logistic-regression-tuned", histogram_freq=0, write_graph=True,
                           write_images=True)
-history = model.fit(X_train, Y_train, nb_epoch=35, batch_size=120, callbacks=[tensorboard])
+history = sequential_model.fit(X_train, Y_train, nb_epoch=35, batch_size=120, callbacks=[tensor_board])
 
 # predicting the accuracy of the model
-score = model.evaluate(X_test, Y_test, verbose=1)
+score = sequential_model.evaluate(X_test, Y_test, verbose=1)
 print('Loss: %.2f, Accuracy: %.2f' % (score[0], score[1]))
 
 # plotting the loss

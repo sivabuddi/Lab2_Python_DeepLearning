@@ -3,9 +3,7 @@ import re
 import matplotlib.pyplot as plot
 import pandas as pd
 from keras import Sequential
-from keras.constraints import maxnorm
-from keras.layers import Embedding, Conv1D, Dropout, MaxPooling1D, Flatten, Dense, LSTM, SpatialDropout1D
-from keras.optimizers import SGD
+from keras.layers import Embedding, Dropout, Dense, LSTM
 from keras.utils import to_categorical
 from keras_preprocessing.sequence import pad_sequences
 from keras_preprocessing.text import Tokenizer
